@@ -52,4 +52,18 @@
 
 ## props
 
+## reducers are just js functions
+
 - props are a way of passing data from parent to child.
+
+## Redux promise
+
+- Redux promise is a middleware -> gatekeeper
+- it looks specifically at the payload property
+- if the payload is a promise it stops everything and waits for the promise to resolve (ajax request finished and data received) -> then dispatches a new action of the same type to the reducer but with a payload of the resolved request
+- In other words - it unwraps the promise for me and sends the unwrapped data to the reducer
+- middleware has the ability to stop or manipulate actions before they hit any reducers
+- the promise does not actually contain any of the data
+- the promise is returned as the payload: in the action creator
+- **DON'T EVER** manipulate / mutate state directly with Redux (ie. state.push() -> changes existing array)
+- **Instead** return a completely new instance of state (ie. state.concat() -> combines existing array data with new data and creates a **NEW** array)

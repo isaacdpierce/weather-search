@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Chart from '../components/chart';
+import GoogleMap from '../components/google_map';
 
 
 class WeatherList extends Component {
@@ -11,16 +12,18 @@ class WeatherList extends Component {
     const temps = cityData.list.map((weather) => weather.main.temp);
     const pressures = cityData.list.map((weather) => weather.main.pressure);
     const humidities = cityData.list.map((weather) => weather.main.humidity);
+    const { lon, lat} = cityData.city.coord;
+   
     
 
     return (
       <tr key={name}>
-        <td>{name}</td> 
+        <td><GoogleMap lon={lon} lat={lat} /></td> 
         {/* need to create more data rows for humidity, etc which involves duplicating markup 
         *** IF duplicating markup it is best practice to create a separate reusable Component -> see chart.js*/}
-        <td><Chart data={temps} color="yellow" /></td>
-        <td><Chart data={pressures} color="blue" /></td>
-        <td><Chart data={humidities} color="green" /></td>
+        <td><Chart data={temps} color="#999" units="K" /></td>
+        <td><Chart data={pressures} color="#999" units="hPa" /></td>
+        <td><Chart data={humidities} color="#999" units="%" /></td>
 
       </tr>
     );
@@ -32,9 +35,9 @@ class WeatherList extends Component {
         <thead>
           <tr>
             <th>City</th>
-            <th>Temperature</th>
-            <th>Pressure</th>
-            <th>Humidity</th>
+            <th>Temperature (K)</th>
+            <th>Pressure (hPa)</th>
+            <th>Humidity (%)</th>
           </tr>
         </thead>
         <tbody>
